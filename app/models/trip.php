@@ -63,12 +63,14 @@ class Trip extends MvcModel {
   			$this->debit_account_save('DEBIT', 'Trip', $object->id, 'motorboy_allowance', $object->motorboy_allowance, 0);
   			$this->debit_account_save('DEBIT', 'Trip', $object->id, 'trip_allowance', $object->trip_allowance, 1);
   			$this->debit_account_save('DEBIT', 'Trip', $object->id, 'total_fuel_cost', $object->total_fuel_cost, 1);
+        $this->debit_account_save('DEBIT', 'Trip', $object->id, 'other_expenses', $object->other_expenses, 1);
   			$this->debit_account_save('CREDIT', 'Trip', $object->id, 'amount_paid', $object->amount_paid, 1);
   		} else {
   			$this->debit_account_create('DEBIT', 'Trip', $object->id, 'driver_allowance', $object->driver_allowance, 0);
   			$this->debit_account_create('DEBIT', 'Trip', $object->id, 'motorboy_allowance', $object->motorboy_allowance, 0);
   			$this->debit_account_create('DEBIT', 'Trip', $object->id, 'trip_allowance', $object->trip_allowance, 1);
   			$this->debit_account_create('DEBIT', 'Trip', $object->id, 'total_fuel_cost', $object->total_fuel_cost, 1);
+        $this->debit_account_create('DEBIT', 'Trip', $object->id, 'other_expenses', $object->other_expenses, 1);
   			$this->debit_account_create('CREDIT', 'Trip', $object->id, 'amount_paid', $object->amount_paid, 1);
   		}
   	}

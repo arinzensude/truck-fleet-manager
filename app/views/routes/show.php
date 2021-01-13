@@ -26,9 +26,6 @@
 	</tr>
 	<tr>
 		<td><?php echo $edit_link ?></td>
-		<td><?php echo $delete_link ?></td>
-	</tr>
-	<tr>
 		<td><?php echo $back_link ?></td>
 	</tr>
 </table>

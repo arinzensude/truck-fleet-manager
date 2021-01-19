@@ -51,10 +51,6 @@ class Trip extends MvcModel {
             'pattern' => '/^[0-9]*\.[0-9]{2}$|^[0-9]/',
             'message' => 'Other Expenses: Please enter only numbers!'
         ),
-        'amount_paid' => array(
-            'pattern' => '/^[0-9]*\.[0-9]{2}$|^[0-9]/',
-            'message' => 'Amount Paid: Please enter only numbers!'
-        ),
     );
 
     public function after_save($object) {

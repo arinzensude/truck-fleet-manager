@@ -25,6 +25,7 @@ class AdminTripsController extends MvcAdminController {
     	$this->set('back_link', $this->truckfleet->back_to_list_link($this->name, 'Trip'));
     	if (!empty($this->params['data']) && !empty($this->params['data']['Trip'])) {
             $this->params['data']['Trip']['updated_on'] = date('Y-m-d');
+            unset($this->params['data']['Trip']['litres_of_fuel']);
         }
         $this->set_clients();
     	$this->set_trucks();

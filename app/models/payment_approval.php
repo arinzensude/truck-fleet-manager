@@ -25,7 +25,35 @@ class PaymentApproval extends MvcModel {
     	//Payment Approval can only be recorded in the Accounts table once
     	if($object->approved && !$this->is_pa_account($object->id)) {
     		$this->debit_account_create('DEBIT', 'PaymentApproval', $object->id, $object->description, $object->amount, 1, $object->requested_by);
+    		$this->approved_email($object);
     	}
+    }
+    
+    public function after_create($object) {
+        $this->pa_email($object);
+    }
+    
+    public function approved_email($object) {
+        $link = HtmlHelper::admin_object_url($object, array('action' => 'edit'));
+        $receiver = get_userdata($object->requested_by);
+        $message = 'Dear Manager,
+        
+This Payment Approval request - '.$link.', has been approved. 
+        
+Regards,
+Digbys Group';
+        wp_mail(array($receiver->user_email, get_option('admin_email')), 'Payment Approved', $message);
+    }
+    
+    public function pa_email($object) {
+        $link = HtmlHelper::admin_object_url($object, array('action' => 'edit'));
+        $message = 'Dear Admin,
+        
+Click '.$link.' to view the Payment request for your approval. 
+        
+Regards,
+Digbys Group';
+        wp_mail(get_option('admin_email'), 'Payment Approval for your Approval', $message);
     }
 
     public function is_pa_account($id) {

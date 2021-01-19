@@ -36,24 +36,26 @@ class PaymentApproval extends MvcModel {
     public function approved_email($object) {
         $link = HtmlHelper::admin_object_url($object, array('action' => 'edit'));
         $receiver = get_userdata($object->requested_by);
+        $headers = array( 'Content-Type: text/plain; charset=UTF-8', 'From: Digbys Group <digbys.logistics@digbysgroup.com>' );
         $message = 'Dear Manager,
         
 This Payment Approval request - '.$link.', has been approved. 
         
 Regards,
 Digbys Group';
-        wp_mail(array($receiver->user_email, get_option('admin_email')), 'Payment Approved', $message);
+        wp_mail(array($receiver->user_email, get_option('admin_email')), 'Payment Approved', $message, $headers);
     }
     
     public function pa_email($object) {
         $link = HtmlHelper::admin_object_url($object, array('action' => 'edit'));
+        $headers = array( 'Content-Type: text/plain; charset=UTF-8', 'From: Digbys Group <digbys.logistics@digbysgroup.com>' );
         $message = 'Dear Admin,
         
 Click '.$link.' to view the Payment request for your approval. 
         
 Regards,
 Digbys Group';
-        wp_mail(get_option('admin_email'), 'Payment Approval for your Approval', $message);
+        wp_mail(get_option('admin_email'), 'Payment Approval for your Approval', $message, $headers);
     }
 
     public function is_pa_account($id) {

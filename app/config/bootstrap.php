@@ -1,5 +1,15 @@
 <?php
 
+//The configuration below sets the access for the listed controllers to a custom capability called 'truck_fleet_manager)
+//which only the administrator and manager userr roles are granted.'
+MvcConfiguration::set(array(
+    'admin_controller_capabilities' => array(
+        'trips' => 'truck_fleet_manager',
+        'wallets' => 'truck_fleet_manager',
+        'payment_approvals' => 'truck_fleet_manager'
+    )
+));
+
 add_action('mvc_admin_init', 'truckfleet_manager_on_mvc_admin_init');
 add_action( 'wp_ajax_admin_trips_get_routes', 'get_routes' );
 add_action( 'wp_ajax_admin_trips_get_route_info', 'get_route_info' );

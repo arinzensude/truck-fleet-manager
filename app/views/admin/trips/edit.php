@@ -10,18 +10,29 @@
 <?php echo $this->form->belongs_to_dropdown('Route', $routes, array('style' => 'width: 100px;', 'empty' => false)); ?>
 <?php echo $this->form->input('quantity', array('label' => 'Quantity (for rate = per bag)')); ?>
 <?php echo $this->form->input('rate', array('readonly'=>'readonly')); ?>
-<?php echo $this->form->input('driver_allowance', array('readonly'=>'readonly')); ?>
-<?php echo $this->form->input('motorboy_allowance', array('readonly'=>'readonly')); ?>
+<?php if(current_user_can('administrator')) {?>
+	<?php echo $this->form->input('driver_allowance', array('readonly'=>'readonly')); ?>
+	<?php echo $this->form->input('motorboy_allowance', array('readonly'=>'readonly')); ?>
+<?php } else { ?>
+	<?php echo $this->form->hidden_input('driver_allowance'); ?>
+	<?php echo $this->form->hidden_input('motorboy_allowance'); ?>
+<?php } ?>
 <?php echo $this->form->input('trip_allowance', array('readonly'=>'readonly')); ?>
 <?php echo $this->form->input('fuel_per_litre', array('label' => 'Fuel Price per Litre')); ?>
 <?php echo $this->form->hidden_input('litres_of_fuel'); ?>
 <?php echo $this->form->input('total_fuel_cost', array('readonly'=>'readonly')); ?>
 <?php echo $this->form->input('other_expenses'); ?>
 <?php echo $this->form->textarea_input('other_expenses_description', array('label' => 'Description for Other Expenses')); ?>
-<?php echo $this->form->input('price', array('readonly'=>'readonly')); ?>
-<?php echo $this->form->input('total_price', array('readonly'=>'readonly')); ?>
-<?php echo $this->form->input('amount_paid'); ?>
-<?php echo $this->form->checkbox_input('paid_in_full', array('label' => 'Paid in Full')); ?>
+<?php if(current_user_can('administrator')) {?>
+	<?php echo $this->form->input('price', array('readonly'=>'readonly')); ?>
+	<?php echo $this->form->input('total_price', array('readonly'=>'readonly')); ?>
+	<?php echo $this->form->input('amount_paid'); ?>
+	<?php echo $this->form->checkbox_input('paid_in_full', array('label' => 'Paid in Full')); ?>
+<?php } else { ?>
+	<?php echo $this->form->hidden_input('price'); ?>
+	<?php echo $this->form->hidden_input('total_price'); ?>
+	<?php echo $this->form->hidden_input('amount_paid'); ?>
+<?php } ?>
 <?php echo $this->form->checkbox_input('complete', array('label' => 'Complete')); ?>
 <?php echo $this->form->close_admin_table(); ?>
 <?php echo $this->form->end('Update'); ?>

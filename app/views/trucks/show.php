@@ -26,7 +26,20 @@
 	</tr>
 	<tr>
 		<td class="label">Capital Expenditure</td>
-		<td class="data"><?php echo $object->capital_expenditure ?></td>
+		<td class="data"><?php echo number_format($object->capital_expenditure, 2) ?></td>
+	</tr>
+	<tr>
+		<td class="label">Revenue (All)</td>
+		<td class="data"><?php echo number_format($truck['account_credit'], 2) ?></td>
+	</tr>
+	<tr>
+		<td class="label">Expenditure (All)</td>
+		<td class="data"><?php echo number_format($truck['debit'], 2) ?></td>
+	</tr>
+	<tr>
+		<td class="label">Profit N Loss (Revenue - (Capital Expenditure + Expenditure))</td>
+		<?php $profit_loss = $truck['account_credit'] - $object->capital_expenditure + $truck['debit']; ?>
+		<td class="data"><?php echo number_format($profit_loss, 2) ?></td>
 	</tr>
 	<tr>
 		<td><?php echo $edit_link ?></td>

@@ -20,4 +20,60 @@ class AdminAccountsController extends MvcAdminController {
         return number_format($object->amount, 2);
     }
 
+    function monthly_financial_report() {
+        $month_start = $d=mktime(0, 0, 0, date('m'), 1, date('Y'));
+        $month_end = $d=mktime(0, 0, 0, date('m'), 31, date('Y'));
+
+        $revenue = $this->Account->sum('amount', array(
+            'conditions' => array(
+                'Account.mode' => 'CREDIT',
+                'Account.updated_on >=' => date("Y-m-d", $month_start),
+                'Account.updated_on <=' => date("Y-m-d", $month_end),
+                'Account.paid_or_received' => 1
+            )
+        ));
+        $expenditure = $this->Account->sum('amount', array(
+            'conditions' => array(
+                'Account.mode' => 'DEBIT',
+                'Account.updated_on >=' => date("Y-m-d", $month_start),
+                'Account.updated_on <=' => date("Y-m-d", $month_end),
+                'Account.paid_or_received' => 1
+            )
+        ));
+        $receivables = $this->Account->sum('amount', array(
+            'conditions' => array(
+                'Account.mode' => 'CREDIT',
+                'Account.updated_on >=' => date("Y-m-d", $month_start),
+                'Account.updated_on <=' => date("Y-m-d", $month_end),
+                'Account.paid_or_received' => 0
+            )
+        ));
+        $payables = $this->Account->sum('amount', array(
+            'conditions' => array(
+                'Account.mode' => 'DEBIT',
+                'Account.updated_on >=' => date("Y-m-d", $month_start),
+                'Account.updated_on <=' => date("Y-m-d", $month_end),
+                'Account.paid_or_received' => 0
+            )
+        ));
+        $this->params = array(
+            'conditions' => array(
+                'Account.updated_on >=' => date("Y-m-d", $month_start),
+                'Account.updated_on <=' => date("Y-m-d", $month_end),
+            ),
+            'page' => 1,
+            'per_page' => 20
+        );
+        $this->set('revenue', $revenue);
+        $this->set('expenditure', $expenditure);
+        $this->set('receivables', $receivables);
+        $this->set('payables', $payables);
+        //$this->set('accounts', $accounts);
+        $this->init_default_columns();
+        $this->process_params_for_search();
+        $collection = $this->model->paginate($this->params);
+        $this->set('objects', $collection['objects']);
+        $this->set_pagination($collection);
+    }
+
 }

@@ -10,6 +10,18 @@ MvcConfiguration::set(array(
     )
 ));
 
+//Add monthly financial report menu to Accounts
+MvcConfiguration::append(array(
+    'AdminPages' => array(
+        'accounts' => array(
+            'add',
+            'delete',
+            'edit',
+            'monthly_financial_report'
+        )
+    )
+));
+
 add_action('mvc_admin_init', 'truckfleet_manager_on_mvc_admin_init');
 add_action( 'wp_ajax_admin_trips_get_routes', 'get_routes' );
 add_action( 'wp_ajax_admin_trips_get_route_info', 'get_route_info' );

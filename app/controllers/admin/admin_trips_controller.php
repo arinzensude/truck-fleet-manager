@@ -36,12 +36,23 @@ class AdminTripsController extends MvcAdminController {
         $this->create_or_save();
   	}
 
-  	public function get_routes($client) {
-  		/*$this->load_model('Route');
-        $routes = $this->Route->find(array('selects' => array('id', 'name'), 'conditions' => array('Route.client' => $client)));
-        return $routes;*/
-        echo "AJAX Working";
-  	}
+  	public function delete() {
+        $this->verify_id_param();
+        $this->set_object();
+        if (!empty($this->object)) {
+            //Prevent deletion of trip if it has been completed or paid for (partly or fully)
+            if ($this->object->complete || $this->object->amount_paid > 0) {
+                $this->flash('error', __('Trip cannot be deleted because it has been completed or paid for (in part or in full)!', 'wpmvc'));
+            } else {
+                $this->model->delete($this->params['id']);
+                $this->flash('notice', __('Successfully deleted!', 'wpmvc'));
+            }
+        } else {
+            $this->flash('warning', 'A '.MvcInflector::humanize($this->model->name).' with ID "'.$this->params['id'].'" couldn\'t be found.');
+        }
+        $url = MvcRouter::admin_url(array('controller' => $this->name, 'action' => 'index'));
+        $this->redirect($url);
+    }
 
   	public function set_clients() {
     	$this->load_model('Client');

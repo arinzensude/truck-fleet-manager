@@ -69,6 +69,10 @@ class Trip extends MvcModel {
         $this->debit_account_create('DEBIT', 'Trip', $object->id, 'other_expenses', $object->other_expenses, 1);
   			$this->debit_account_create('CREDIT', 'Trip', $object->id, 'amount_paid', $object->amount_paid, 1);
   		}
+      //Update manager balance after creating or updating Trip
+      if (current_user_can('manager')) {
+        $this->update_manager_wallet(wp_cache_get('trip_amount'));
+      }
   	}
 
   	public function is_trip_account($id) {
@@ -127,7 +131,9 @@ class Trip extends MvcModel {
       if (current_user_can('manager')) {
         if ($mode == 'ADD') {
           $amount = $object_arr['trip_allowance'] + $object_arr['total_fuel_cost'] + $object_arr['other_expenses'];
-          if ($this->can_manager_pay(get_current_user_id(), $amount)) {
+          $user = get_current_user_id();
+          if ($this->can_manager_pay($user, $amount)) {
+            wp_cache_set('trip_amount', array('user' => $user, 'amount' =>$amount));
             return true;
           } else {
             //$this->validation_error_html = 'You do not have enough funds in your wallet to create this Payment Approval';
@@ -137,13 +143,16 @@ class Trip extends MvcModel {
           $former_amount = $object_arr['trip_allowance'] + $object_arr['total_fuel_cost'] + $object_arr['other_expenses'];
           $new_amount = $object->trip_allowance + $object->total_fuel_cost + $object->other_expenses;
           $amount = $former_amount - $new_amount;
+          $user = get_current_user_id();
           if ($amount > 0) {
-            if ($this->can_manager_pay(get_current_user_id(), $amount)) {
+            if ($this->can_manager_pay($user, $amount)) {
+              wp_cache_set('trip_amount', array('user' => $user, 'amount' =>$amount));
               return true;
             } else {
               return false;
             }
           } else {
+            wp_cache_set('trip_amount', array('user' => $user, 'amount' =>$amount));
             return true;
           }
         } else {
@@ -165,6 +174,16 @@ class Trip extends MvcModel {
         return true;
       else
         return false;
+    }
+
+    public function update_manager_wallet($data) {
+      $wallet = new Wallet();
+      $manager_wallet = $wallet->find(array(
+        'conditions' => array('Wallet.manager'=>$data['user'] )
+      ));
+      $new_balance = $manager_wallet[0]->balance - $data['amount'];
+      //Update wallet balance
+      $wallet->update($manager_wallet[0]->id, array('balance' => $new_balance));
     }
 
 }

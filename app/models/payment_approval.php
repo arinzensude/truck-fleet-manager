@@ -26,6 +26,8 @@ class PaymentApproval extends MvcModel {
     	if($object->approved && !$this->is_pa_account($object->id)) {
     		$this->debit_account_create('DEBIT', 'PaymentApproval', $object->id, $object->description, $object->amount, 1, $object->requested_by);
     		$this->approved_email($object);
+        //Update manager balance after Payment Approval is approved
+        $this->update_manager_wallet(array('user' => $object->requested_by, 'amount' => $object->amount));
     	}
     }
     
@@ -108,7 +110,9 @@ Digbys Group';
     public function custom_before_save($object_arr, $mode, $object = null) {
       if (current_user_can('manager')) {
         if ($mode == 'ADD') {
-          if ($this->can_manager_pay($object_arr['requested_by'], $object_arr['amount'])) {
+          $user = $object_arr['requested_by'];
+          $amount = $object_arr['amount'];
+          if ($this->can_manager_pay($user, $amount)) {
             return true;
           } else {
             //$this->validation_error_html = 'You do not have enough funds in your wallet to create this Payment Approval';
@@ -116,8 +120,9 @@ Digbys Group';
           }
         } elseif ($mode == 'EDIT') {
           $amount = $object_arr['amount'] - $object->amount;
+          $user = $object->requested_by;
           if ($amount > 0) {
-            if ($this->can_manager_pay($object->requested_by, $amount)) {
+            if ($this->can_manager_pay($user, $amount)) {
               return true;
             } else {
               return false;
@@ -144,6 +149,16 @@ Digbys Group';
         return true;
       else
         return false;
+    }
+
+    public function update_manager_wallet($data) {
+      $wallet = new Wallet();
+      $manager_wallet = $wallet->find(array(
+        'conditions' => array('Wallet.manager'=>$data['user'] )
+      ));
+      $new_balance = $manager_wallet[0]->balance - $data['amount'];
+      //Update wallet balance
+      $wallet->update($manager_wallet[0]->id, array('balance' => $new_balance));
     }
 
 }

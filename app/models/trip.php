@@ -122,4 +122,49 @@ class Trip extends MvcModel {
   		$account->delete_all(array('conditions' => array( 'type' => 'Trip', 'type_id' => $object->id)));
   	}
 
+    //Check if manager can pay for the amount in a Trip (trip allowance, fuel cost and other expenses)
+    public function custom_before_save($object_arr, $mode, $object = null) {
+      if (current_user_can('manager')) {
+        if ($mode == 'ADD') {
+          $amount = $object_arr['trip_allowance'] + $object_arr['total_fuel_cost'] + $object_arr['other_expenses'];
+          if ($this->can_manager_pay(get_current_user_id(), $amount)) {
+            return true;
+          } else {
+            //$this->validation_error_html = 'You do not have enough funds in your wallet to create this Payment Approval';
+            return false;
+          }
+        } elseif ($mode == 'EDIT') {
+          $former_amount = $object_arr['trip_allowance'] + $object_arr['total_fuel_cost'] + $object_arr['other_expenses'];
+          $new_amount = $object->trip_allowance + $object->total_fuel_cost + $object->other_expenses;
+          $amount = $former_amount - $new_amount;
+          if ($amount > 0) {
+            if ($this->can_manager_pay(get_current_user_id(), $amount)) {
+              return true;
+            } else {
+              return false;
+            }
+          } else {
+            return true;
+          }
+        } else {
+          return true;
+        }
+      } else {
+        return true;
+      }
+    }
+
+    public function can_manager_pay($user, $amount) {
+      $wallet = new Wallet();
+      $manager_wallet = $wallet->find(array(
+        'selects' => array('Wallet.balance'),
+        'conditions' => array('Wallet.manager'=>$user )
+      ));
+      $balance = $manager_wallet[0]->balance;
+      if ($balance > $amount)
+        return true;
+      else
+        return false;
+    }
+
 }

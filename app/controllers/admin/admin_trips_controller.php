@@ -17,7 +17,13 @@ class AdminTripsController extends MvcAdminController {
             $this->params['data']['Trip']['created_on'] = date('Y-m-d');
             $this->params['data']['Trip']['updated_on'] = date('Y-m-d');
         }
-    	$this->create_or_save();
+    	if ($this->model->custom_before_save($this->params['data']['Trip'], 'ADD')) {
+            $this->create_or_save();
+        } else {
+            if (!empty($this->params['data']) && !empty($this->params['data']['Trip'])) {
+                $this->flash('error', __('You do not have enough funds in your wallet to create this Trip', 'wpmvc'));
+            }
+        }
     }
 
     public function edit() {
@@ -33,7 +39,13 @@ class AdminTripsController extends MvcAdminController {
     	$this->set_routes();
         $this->verify_id_param();
         $this->set_object();
-        $this->create_or_save();
+        if ($this->model->custom_before_save($this->params['data']['Trip'], 'EDIT', $this->object)) {
+            $this->create_or_save();
+        } else {
+            if (!empty($this->params['data']) && !empty($this->params['data']['Trip'])) {
+                $this->flash('error', __('You do not have enough funds in your wallet to create this Trip', 'wpmvc'));
+            }
+        }
   	}
 
   	public function delete() {

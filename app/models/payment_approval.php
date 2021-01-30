@@ -104,4 +104,46 @@ Digbys Group';
   		$account->create($params);
   	}
 
+    //Check if manager can pay for the amount in a Payment Approval
+    public function custom_before_save($object_arr, $mode, $object = null) {
+      if (current_user_can('manager')) {
+        if ($mode == 'ADD') {
+          if ($this->can_manager_pay($object_arr['requested_by'], $object_arr['amount'])) {
+            return true;
+          } else {
+            //$this->validation_error_html = 'You do not have enough funds in your wallet to create this Payment Approval';
+            return false;
+          }
+        } elseif ($mode == 'EDIT') {
+          $amount = $object_arr['amount'] - $object->amount;
+          if ($amount > 0) {
+            if ($this->can_manager_pay($object->requested_by, $amount)) {
+              return true;
+            } else {
+              return false;
+            }
+          } else {
+            return true;
+          }
+        } else {
+          return true;
+        }
+      } else {
+        return true;
+      }
+    }
+
+    public function can_manager_pay($user, $amount) {
+      $wallet = new Wallet();
+      $manager_wallet = $wallet->find(array(
+        'selects' => array('Wallet.balance'),
+        'conditions' => array('Wallet.manager'=>$user )
+      ));
+      $balance = $manager_wallet[0]->balance;
+      if ($balance > $amount)
+        return true;
+      else
+        return false;
+    }
+
 }

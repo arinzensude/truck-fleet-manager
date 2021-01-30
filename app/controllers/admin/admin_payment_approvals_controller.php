@@ -30,7 +30,13 @@ class AdminPaymentApprovalsController extends MvcAdminController {
             $this->params['data']['PaymentApproval']['updated_on'] = date('Y-m-d');
             $this->params['data']['PaymentApproval']['requested_by'] = get_current_user_id();
         }
-    	$this->create_or_save();
+        if ($this->model->custom_before_save($this->params['data']['PaymentApproval'], 'ADD')) {
+            $this->create_or_save();
+        } else {
+            if (!empty($this->params['data']) && !empty($this->params['data']['PaymentApproval'])) {
+                $this->flash('error', __('You do not have enough funds in your wallet to create this Payment Approval', 'wpmvc'));
+            }
+        }
     }
 
     public function edit() {
@@ -45,7 +51,13 @@ class AdminPaymentApprovalsController extends MvcAdminController {
         $this->set_trucks();
         $this->verify_id_param();
         $this->set_object();
-        $this->create_or_save();
+        if ($this->model->custom_before_save($this->params['data']['PaymentApproval'], 'EDIT', $this->object)) {
+            $this->create_or_save();
+        } else {
+            if (!empty($this->params['data']) && !empty($this->params['data']['PaymentApproval'])) {
+                $this->flash('error', __('You do not have enough funds in your wallet to create this Payment Approval', 'wpmvc'));
+            }
+        }
   	}
 
   	public function set_trucks() {

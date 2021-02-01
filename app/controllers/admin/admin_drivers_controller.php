@@ -2,7 +2,7 @@
 
 class AdminDriversController extends MvcAdminController {
 
-    var $default_columns = array('id', 'name', 'address', 'phone_no', 'bank_name', 'account_no', 'motorboy' => array('value_method' => 'get_motorboy_name'));
+    var $default_columns = array('id', 'name', 'address', 'phone_no', 'passport'=>array('value_method' => 'passport_link'), 'bank_name', 'account_no', 'motorboy' => array('value_method' => 'get_motorboy_name'));
     var $default_searchable_fieldss = array('name', 'motorboy');
 
     public function add() {
@@ -35,6 +35,11 @@ class AdminDriversController extends MvcAdminController {
 
     public function get_motorboy_name($object) {
     	return HtmlHelper::admin_object_link($object->motorboy, array('action' => 'edit'));
+    }
+
+    public function passport_link($object) {
+        $img = '<img src="'.$object->passport.'" width="100%" height="auto">';
+        return $img;
     }
 
 }

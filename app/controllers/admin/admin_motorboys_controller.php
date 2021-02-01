@@ -25,7 +25,8 @@ class AdminMotorboysController extends MvcAdminController {
     }
 
     public function passport_link($object) {
-        return HtmlHelper::link($object->passport, $object->passport, array('target' => '_blank'));
+        $img = '<img src="'.$object->passport.'" width="100%" height="auto">';
+        return $img;
     }
 
 }

@@ -25,8 +25,8 @@
 		<td class="data"><?php echo $this->html->link($object->license, $object->license) ?></td>
 	</tr>
 	<tr>
-		<td class="label">Passport URL</td>
-		<td class="data"><?php echo $this->html->link($object->passport, $object->passport) ?></td>
+		<td class="label">Passport</td>
+		<td><img src=<?php echo $object->passport ?> ></td>
 	</tr>
 	<tr>
 		<td class="label">Reference Name</td>

@@ -9,8 +9,8 @@
 		<td class="data"><?php echo $object->year ?></td>
 	</tr>
 	<tr>
-		<td class="label">Image URL</td>
-		<td class="data"><?php echo $this->html->link($object->image, $object->image) ?></td>
+		<td class="label">Image</td>
+		<td><img src=<?php echo $object->image ?> ></td>
 	</tr>
 	<tr>
 		<td class="label">Plate Number</td>

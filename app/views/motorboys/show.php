@@ -9,6 +9,10 @@
 		<td class="data"><?php echo $object->phone_no ?></td>
 	</tr>
 	<tr>
+		<td class="label">Passport</td>
+		<td><img src=<?php echo $object->passport ?> ></td>
+	</tr>
+	<tr>
 		<td class="label">Bank Name</td>
 		<td class="data"><?php echo $object->bank_name ?></td>
 	</tr>

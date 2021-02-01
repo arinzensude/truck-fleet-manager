@@ -2,11 +2,11 @@
 
 class AdminTrucksController extends MvcAdminController {
 
-    var $default_columns = array('id', 'name', 'model', 'year', 
-    	'image'=>array('value_method' => 'img_link', 'label' => 'Image URL'), 
+    var $default_columns = array('id', 'name', 'plate_no','model', 'year', 
+    	'image'=>array('value_method' => 'img_link'), 
     	'particulars'=> array('value_method' => 'particulars_link', 'label' => 'Particulars URL'), 
-    	'particulars_expiry', 'truck_type' => array('value_method' => 'get_truck_type'),'capital_expenditure' => array('value_method' => 'number_format_ce'));
-    var $default_searchable_fields = array('name', 'model');
+    	'particulars_expiry', 'truck_type' => array('value_method' => 'get_truck_type'));
+    var $default_searchable_fields = array('name', 'model', 'plate_no', 'year');
 
     public function add() {
         $this->set_types();
@@ -30,7 +30,8 @@ class AdminTrucksController extends MvcAdminController {
   	}
 
   	public function img_link($object) {
-        return empty($object->image) ? null : HtmlHelper::link($object->image, $object->image, array('target' => '_blank'));
+        $img = '<img src="'.$object->image.'" width="100%" height="auto">';
+        return $img;
     }
 
     public function particulars_link($object) {

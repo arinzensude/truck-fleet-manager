@@ -16,10 +16,12 @@
 		<td class="label">Trip Allowance (NGN)</td>
 		<td class="data"><?php echo $object->trip_allowance ?></td>
 	</tr>
-	<tr>
-		<td class="label">Litres of Fuel</td>
-		<td class="data"><?php echo $object->litres_of_fuel ?></td>
-	</tr>
+	<?php foreach($types as $type) {?>
+		<tr>
+			<td class="label"><?php echo $type->name ?> (Litres of Fuel)</td>
+			<td class="data"><?php echo $type->value ?></td>
+		</tr>
+	<?php }?>
 	<tr>
 		<td class="label">Price (NGN)</td>
 		<td class="data"><?php echo $object->price ?></td>

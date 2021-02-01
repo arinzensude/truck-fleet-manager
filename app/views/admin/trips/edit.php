@@ -3,7 +3,7 @@
 <?php echo $this->form->create($model->name, array('is_admin' => $this->is_admin)); ?>
 <?php echo $this->form->open_admin_table(); ?>
 <?php echo $this->form->input('invoice_no'); ?>
-<?php echo $this->form->date_input('invoice_date', array('label' => 'Invoice Date')); ?>
+<?php echo $this->form->date_input('invoice_date', array('label' => 'Invoice Date', 'value' => $object->invoice_date)); ?>
 <?php echo $this->form->belongs_to_dropdown('Truck', $trucks, array('style' => 'width: 100px;', 'empty' => false)); ?>
 <?php echo $this->form->belongs_to_dropdown('Driver', $drivers, array('style' => 'width: 100px;', 'empty' => false)); ?>
 <?php echo $this->form->belongs_to_dropdown('Client', $clients, array('style' => 'width: 100px;', 'empty' => false)); ?>

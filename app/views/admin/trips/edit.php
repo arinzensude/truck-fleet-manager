@@ -11,8 +11,8 @@
 <?php echo $this->form->input('quantity', array('label' => 'Quantity (for rate = per bag)')); ?>
 <?php echo $this->form->input('rate', array('readonly'=>'readonly')); ?>
 <?php if(current_user_can('administrator')) {?>
-	<?php echo $this->form->input('driver_allowance', array('readonly'=>'readonly')); ?>
-	<?php echo $this->form->input('motorboy_allowance', array('readonly'=>'readonly')); ?>
+	<?php echo $this->form->input('driver_allowance'); ?>
+	<?php echo $this->form->input('motorboy_allowance'); ?>
 <?php } else { ?>
 	<?php echo $this->form->hidden_input('driver_allowance'); ?>
 	<?php echo $this->form->hidden_input('motorboy_allowance'); ?>

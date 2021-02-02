@@ -13,9 +13,9 @@ jQuery(document).ready(function(){
 	});
 	//Set information for the first route that is on display when the page loads
 	if(jQuery("#add-trip #Trip_Route_select").is(":visible")) {
+		get_litres_of_fuel();
 		if(!jQuery("#add-trip #TripDriverAllowance").val()) {
 			get_selected_route_info();
-			get_litres_of_fuel();
 		}
 	}
 	//Set information for selected route

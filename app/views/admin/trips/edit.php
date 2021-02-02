@@ -1,4 +1,8 @@
 <h2>Edit Trip</h2>
+<div>
+	<p>Total Payout Amount by Manager (NGN): <?php echo number_format($object->trip_allowance + $object->total_fuel_cost + $object->other_expenses, 2) ?> </p>
+	<p><b>Note: The above amount was arrived at by adding the trip allowance, total fuel cost and other expenses for this trip.</b></p>
+</div>
 <div id="add-trip">
 <?php echo $this->form->create($model->name, array('is_admin' => $this->is_admin)); ?>
 <?php echo $this->form->open_admin_table(); ?>

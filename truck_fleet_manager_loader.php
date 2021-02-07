@@ -41,6 +41,7 @@ class TruckFleetManagerLoader extends MvcPluginLoader {
             address varchar(255) NOT NULL,
             phone_no varchar(255) NOT NULL,
             rate varchar(10) NOT NULL,
+            trip_message text default NULL,
             created_on date NOT NULL,
             updated_on date NOT NULL,
             PRIMARY KEY  (id)

@@ -2,7 +2,7 @@
 
 class AdminClientsController extends MvcAdminController {
 
-    var $default_columns = array('id', 'name', 'address', 'phone_no'=> 'Phone Number', 'rate'=>'Rate (per bag/per trip)');
+    var $default_columns = array('id', 'name', 'address', 'phone_no'=> 'Phone Number', 'rate'=>'Rate (per bag/per trip)', 'trip_message');
     var $default_searchable_fields = array('name', 'phone_no');
     var $rate = array('per bag'=>'per bag', 'per trip'=>'per trip');
 

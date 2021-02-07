@@ -1,5 +1,6 @@
 <h2>Add Trip</h2>
 <div id="add-trip">
+	<div id="client-trip-message"><p></p></div>
 <?php echo $this->form->create($model->name, array('is_admin' => $this->is_admin)); ?>
 <?php echo $this->form->open_admin_table(); ?>
 <?php echo $this->form->input('invoice_no'); ?>

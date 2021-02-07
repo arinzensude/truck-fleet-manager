@@ -1,9 +1,9 @@
 jQuery(document).ready(function(){
 	//Set routes for the first client that is on display when page loads
 	if(jQuery("#add-trip #Trip_Client_select").is(":visible")) {
+		get_client_rate();
 		if(!jQuery("#add-trip #TripRate").val()) {
 			get_selected_client_routes();
-			get_client_rate();
 		}
 	}
 	//Set routes for selected client
@@ -75,8 +75,14 @@ function get_client_rate() {
 	};
   	jQuery.post(ajaxurl, data, function(data, status) {
   		var rate = JSON.parse(data);
-  		jQuery("#add-trip #TripRate").val(rate[0]['rate']);
-  		set_total_price();
+  		if(!jQuery("#add-trip #TripRate").val()) {
+  			jQuery("#add-trip #TripRate").val(rate[0]['rate']);
+  			set_total_price();
+  		}
+  		var trip_msg = rate[0]['trip_message'];
+  		if (trip_msg != null && trip_msg) {
+  			jQuery("#add-trip #client-trip-message p").text('Selected client trip message: ' + trip_msg);
+  		}	
   	});
 }
 

@@ -49,7 +49,7 @@ function get_route_info() {
 
 function get_client_rate() {
     global $wpdb;
-    $results = $wpdb->get_results( "SELECT rate FROM {$wpdb->prefix}clients WHERE id = {$_POST["client"]}", OBJECT );
+    $results = $wpdb->get_results( "SELECT rate, trip_message FROM {$wpdb->prefix}clients WHERE id = {$_POST["client"]}", OBJECT );
     echo json_encode($results);
     wp_die();
 }

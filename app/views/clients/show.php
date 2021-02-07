@@ -13,6 +13,10 @@
 		<td class="data"><?php echo $object->rate ?></td>
 	</tr>
 	<tr>
+		<td class="label">Trip Message</td>
+		<td class="data"><?php echo $object->trip_message ?></td>
+	</tr>
+	<tr>
 		<td><?php echo $edit_link ?></td>
 		<td><?php echo $back_link ?></td>
 	</tr>

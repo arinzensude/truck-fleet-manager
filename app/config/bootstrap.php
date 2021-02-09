@@ -14,9 +14,6 @@ MvcConfiguration::set(array(
 MvcConfiguration::append(array(
     'AdminPages' => array(
         'accounts' => array(
-            'add',
-            'delete',
-            'edit',
             'monthly_financial_report',
             'salary'
         )

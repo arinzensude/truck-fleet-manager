@@ -76,4 +76,48 @@ class AdminAccountsController extends MvcAdminController {
         $this->set_pagination($collection);
     }
 
+    function salary() {
+        $user = get_current_user_id();
+        if (!empty($this->params['data']) && !empty($this->params['data']['Account'])) {
+            if (is_numeric($this->params['data']['Account']['amount'])) {
+                $this->params['data']['Account']['created_on'] = date('Y-m-d');
+                $this->params['data']['Account']['updated_on'] = date('Y-m-d');
+                if($this->model->create($this->params['data'])) {
+                    $this->model->update_manager_wallet(array('user' => $user, 'amount' =>$this->params['data']['Account']['amount']));
+                    $this->flash('notice', __('Salary successfully recorded in Accounts!', 'wpmvc'));
+                } else {
+                    $this->flash('error', $this->model->validation_error_html);
+                    $this->set_object();
+                }
+            } else {
+                $this->flash('error', __('Amount must be a number', 'wpmvc'));
+            }
+        }
+        $this->set_users();
+        $this->set('paid_by', $user);
+
+        //List Salary
+        $this->params = array(
+            'conditions' => array(
+                'Account.type' => 'Salary',
+            ),
+            'page' => 1,
+            'per_page' => 20
+        );
+        $this->init_default_columns();
+        $this->process_params_for_search();
+        $collection = $this->model->paginate($this->params);
+        $this->set('objects', $collection['objects']);
+        $this->set_pagination($collection);
+    }
+
+    public function set_users() {
+        $users = get_users(array('fields' => array('ID', 'user_nicename')));
+        $managers = array();
+        foreach ($users as $user) {
+            $managers[$user->ID] = $user->user_nicename;
+        }
+        $this->set('users', $managers);
+    }
+
 }

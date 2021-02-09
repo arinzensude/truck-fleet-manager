@@ -17,7 +17,8 @@ MvcConfiguration::append(array(
             'add',
             'delete',
             'edit',
-            'monthly_financial_report'
+            'monthly_financial_report',
+            'salary'
         )
     )
 ));

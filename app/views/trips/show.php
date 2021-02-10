@@ -32,6 +32,7 @@
 		<td class="label">Rate</td>
 		<td class="data"><?php echo $object->rate ?></td>
 	</tr>
+	<?php if (current_user_can('administrator')) { ?>
 	<tr>
 		<td class="label">Driver Allowance (NGN)</td>
 		<td class="data"><?php echo $object->driver_allowance ?></td>
@@ -40,6 +41,7 @@
 		<td class="label">Motorboy Allowance (NGN)</td>
 		<td class="data"><?php echo $object->motorboy_allowance ?></td>
 	</tr>
+	<?php } ?>
 	<tr>
 		<td class="label">Trip Allowance (NGN)</td>
 		<td class="data"><?php echo $object->trip_allowance ?></td>
@@ -52,6 +54,7 @@
 		<td class="label">Total Fuel Cost (NGN)</td>
 		<td class="data"><?php echo $object->total_fuel_cost ?></td>
 	</tr>
+	<?php if (current_user_can('administrator')) { ?>
 	<tr>
 		<td class="label">Price (NGN)</td>
 		<td class="data"><?php echo $object->price ?></td>
@@ -60,6 +63,7 @@
 		<td class="label">Total Price (NGN)</td>
 		<td class="data"><?php echo $object->total_price ?></td>
 	</tr>
+	<?php } ?>
 	<tr>
 		<td class="label">Other Expenses (NGN)</td>
 		<td class="data"><?php echo $object->other_expenses ?></td>
@@ -68,10 +72,12 @@
 		<td class="label">Other Expenses Description</td>
 		<td class="data"><?php echo $object->other_expenses_description ?></td>
 	</tr>
+	<?php if (current_user_can('administrator')) { ?>
 	<tr>
 		<td class="label">Amount Paid (NGN)</td>
 		<td class="data"><?php echo $object->amount_paid ?></td>
 	</tr>
+	<?php } ?>
 	<tr>
 		<td class="label">Is Paid in Full?</td>
 		<td class="data"><?php echo ($object->paid_in_full == 0) ? 'No' : 'Yes' ?></td>
@@ -80,10 +86,12 @@
 		<td class="label">Is Complete?</td>
 		<td class="data"><?php echo ($object->complete == 0) ? 'No' : 'Yes' ?></td>
 	</tr>
+	<?php if (current_user_can('administrator')) { ?>
 	<tr>
 		<td><?php echo $edit_link ?></td>
 		<td><?php echo $back_link ?></td>
 	</tr>
+	<?php } ?>
 </table>
 <p>
     <?php //echo $this->html->link('&#8592; All Trips', array('controller' => 'trips')); ?>

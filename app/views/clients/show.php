@@ -16,10 +16,12 @@
 		<td class="label">Trip Message</td>
 		<td class="data"><?php echo $object->trip_message ?></td>
 	</tr>
+	<?php if (current_user_can('administrator')) { ?>
 	<tr>
 		<td><?php echo $edit_link ?></td>
 		<td><?php echo $back_link ?></td>
 	</tr>
+	<?php } ?>
 </table>
 <p>
     <?php //echo $this->html->link('&#8592; All Clients', array('controller' => 'clients')); ?>

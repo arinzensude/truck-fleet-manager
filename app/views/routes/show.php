@@ -4,6 +4,7 @@
 		<td class="label">Client</td>
 		<td class="data"><?php echo $this->truckfleet->back_to_model_public_link($object->client) ?></td>
 	</tr>
+	<?php if (current_user_can('administrator')) { ?>
 	<tr>
 		<td class="label">Driver Allowance (NGN)</td>
 		<td class="data"><?php echo $object->driver_allowance ?></td>
@@ -12,6 +13,7 @@
 		<td class="label">Motorboy Allowance (NGN)</td>
 		<td class="data"><?php echo $object->motorboy_allowance ?></td>
 	</tr>
+	<?php } ?>
 	<tr>
 		<td class="label">Trip Allowance (NGN)</td>
 		<td class="data"><?php echo $object->trip_allowance ?></td>
@@ -22,6 +24,7 @@
 			<td class="data"><?php echo $type->value ?></td>
 		</tr>
 	<?php }?>
+	<?php if (current_user_can('administrator')) { ?>
 	<tr>
 		<td class="label">Price (NGN)</td>
 		<td class="data"><?php echo $object->price ?></td>
@@ -30,6 +33,7 @@
 		<td><?php echo $edit_link ?></td>
 		<td><?php echo $back_link ?></td>
 	</tr>
+	<?php } ?>
 </table>
 <p>
     <?php //echo $this->html->link('&#8592; All Routes', array('controller' => 'routes')); ?>

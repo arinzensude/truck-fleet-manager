@@ -91,19 +91,19 @@ class AdminTripsController extends MvcAdminController {
     }
 
   	public function get_client_name($object) {
-        return HtmlHelper::admin_object_link($object->client, array('action' => 'edit'));
+        return HtmlHelper::object_link($object->client);
     }
 
     public function get_truck_name($object) {
-        return HtmlHelper::admin_object_link($object->truck, array('action' => 'edit'));
+        return HtmlHelper::object_link($object->truck);
     }
 
     public function get_driver_name($object) {
-        return HtmlHelper::admin_object_link($object->driver, array('action' => 'edit'));
+        return HtmlHelper::object_link($object->driver);
     }
 
     public function get_route_name($object) {
-        return HtmlHelper::admin_object_link($object->route, array('action' => 'edit'));
+        return HtmlHelper::object_link($object->route);
     }
 
     public function get_paid_in_full($object) {

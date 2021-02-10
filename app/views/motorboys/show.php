@@ -12,6 +12,7 @@
 		<td class="label">Passport</td>
 		<td><img src=<?php echo $object->passport ?> ></td>
 	</tr>
+	<?php if (current_user_can('administrator')) { ?>
 	<tr>
 		<td class="label">Bank Name</td>
 		<td class="data"><?php echo $object->bank_name ?></td>
@@ -24,6 +25,7 @@
 		<td><?php echo $edit_link ?></td>
 		<td><?php echo $back_link ?></td>
 	</tr>
+	<?php } ?>
 </table>
 <p>
     <?php //echo $this->html->link('&#8592; All Motorboys', array('controller' => 'motorboys')); ?>

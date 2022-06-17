@@ -6,10 +6,12 @@
 	<?php echo $this->form->belongs_to_dropdown('Truck', $trucks, array('style' => 'width: 300px;', 'empty' => true, 'disabled'=>'true')); ?>
 	<?php echo $this->form->input('amount', array('readonly'=>'readonly')); ?>
 	<?php echo $this->form->textarea_input('description', array('label' => 'Description', 'readonly'=>'readonly')); ?>
+	<?php echo $this->form->date_input('created_on', array('label' => 'Date', 'readonly'=>'readonly', 'value'=>$object->created_on)); ?>
 <?php } else {?>
 	<?php echo $this->form->belongs_to_dropdown('Truck', $trucks, array('style' => 'width: 300px;', 'empty' => true)); ?>
 	<?php echo $this->form->input('amount'); ?>
 	<?php echo $this->form->textarea_input('description', array('label' => 'Description')); ?>
+	<?php echo $this->form->date_input('created_on', array('label' => 'Date', 'value'=>$object->created_on)); ?>
 <?php }?>
 <?php if(!$object->approved && current_user_can('administrator')) {?>
 	<?php echo $this->form->checkbox_input('approved', array('label' => 'Approved')); ?>

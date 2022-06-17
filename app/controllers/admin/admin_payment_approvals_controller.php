@@ -2,7 +2,7 @@
 
 class AdminPaymentApprovalsController extends MvcAdminController {
 
-    var $default_columns = array('id', 'truck' => array('value_method' => 'get_truck_name'), 'amount' => array('value_method' => 'number_format_amount'), 'description', 'approved' => array('value_method' => 'is_approved'), 'requested_by' => array('value_method' => 'get_requested_by'), 'approved_by' => array('value_method' => 'get_approved_by'));
+    var $default_columns = array('id', 'truck' => array('value_method' => 'get_truck_name'), 'amount' => array('value_method' => 'number_format_amount'), 'description', 'approved' => array('value_method' => 'is_approved'), 'requested_by' => array('value_method' => 'get_requested_by'), 'approved_by' => array('value_method' => 'get_approved_by'), 'created_on' => 'Created On (YYYY-MM-DD)');
     var $default_searchable_fields = array('truck', 'amount', 'description', 'approved', 'requested_by', 'approved_by');
 
     public function get_truck_name($object) {
@@ -26,7 +26,8 @@ class AdminPaymentApprovalsController extends MvcAdminController {
     public function add() {
     	$this->set_trucks();
     	if (!empty($this->params['data']) && !empty($this->params['data']['PaymentApproval'])) {
-            $this->params['data']['PaymentApproval']['created_on'] = date('Y-m-d');
+            //Commented the line below because the created_on field is now set by the user
+            //$this->params['data']['PaymentApproval']['created_on'] = date('Y-m-d');
             $this->params['data']['PaymentApproval']['updated_on'] = date('Y-m-d');
             $this->params['data']['PaymentApproval']['requested_by'] = get_current_user_id();
         }

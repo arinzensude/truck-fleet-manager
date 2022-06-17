@@ -2,7 +2,7 @@
 
 <?php echo $this->form->create($model->name, array('is_admin' => $this->is_admin)); ?>
 <?php echo $this->form->open_admin_table(); ?>
-<?php if($object->approved || current_user_can('administrator')) {?>
+<?php if($object->approved && !current_user_can('administrator')) {?>
 	<?php echo $this->form->belongs_to_dropdown('Truck', $trucks, array('style' => 'width: 300px;', 'empty' => true, 'disabled'=>'true')); ?>
 	<?php echo $this->form->input('amount', array('readonly'=>'readonly')); ?>
 	<?php echo $this->form->textarea_input('description', array('label' => 'Description', 'readonly'=>'readonly')); ?>

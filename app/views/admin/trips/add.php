@@ -22,7 +22,7 @@
 <?php echo $this->form->input('fuel_per_litre', array('label' => 'Fuel Price per Litre')); ?>
 <?php echo $this->form->hidden_input('litres_of_fuel'); ?>
 <?php echo $this->form->input('total_fuel_cost', array('readonly'=>'readonly')); ?>
-<?php echo $this->form->input('other_expenses'); ?>
+<?php echo $this->form->input('other_expenses', array('value'=>0)); ?>
 <?php echo $this->form->textarea_input('other_expenses_description', array('label' => 'Description for Other Expenses')); ?>
 <?php if(current_user_can('administrator')) {?>
 	<?php echo $this->form->input('price', array('readonly'=>'readonly')); ?>

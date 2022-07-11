@@ -23,6 +23,11 @@ jQuery(document).ready(function(){
 		get_selected_route_info();
 		get_litres_of_fuel();
 	});
+	//When Truck select changes
+	jQuery("#add-trip #Trip_Truck_select").change(function() {
+		get_litres_of_fuel();
+		console.log("Truck select changed!")
+	});
 	//Calculate total fuel cost once fuel per litre value changes
 	jQuery("#add-trip #TripFuelPerLitre").change(function() {
 		calculate_total_fuel_cost();

@@ -54,6 +54,23 @@ jQuery(document).ready(function(){
 		get_unpaid_motorboy_allowances();
 	}
 
+	jQuery("#choose-monthly-fin-report").click(function() {
+		console.log("Button clicked");
+		let urlParams = new URLSearchParams(window.location.search);
+		urlParams.append("month", jQuery("#choose-month").val());
+		urlParams.append("year", jQuery("#choose-year").val());
+		window.location.search = urlParams;
+		//return false;
+	});
+	//Monthly Financial report: make the choose year and choose month input retain their last value
+	if(jQuery("#choose-monthly-fin-report").is(":visible")) {
+		var params = get_query();
+		if (params['year']) {
+			jQuery("#choose-year").val(params['year']);
+			jQuery("#choose-month").val(params['month']);
+		}
+	}
+
 });
 
 function set_total_price() {
@@ -185,4 +202,15 @@ function parse_inner_table_trs(options_obj, driver_or_motorboy) {
 		
 	});
 	return output;
+}
+
+//get values from query string or URL parameters
+function get_query(){
+    var url = document.location.href;
+    var qs = url.substring(url.indexOf('?') + 1).split('&');
+    for(var i = 0, result = {}; i < qs.length; i++){
+        qs[i] = qs[i].split('=');
+        result[qs[i][0]] = decodeURIComponent(qs[i][1]);
+    }
+    return result;
 }

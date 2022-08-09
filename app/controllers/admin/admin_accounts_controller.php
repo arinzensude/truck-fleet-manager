@@ -21,8 +21,22 @@ class AdminAccountsController extends MvcAdminController {
     }
 
     function monthly_financial_report() {
-        $month_start = $d=mktime(0, 0, 0, date('m'), 1, date('Y'));
-        $month_end = $d=mktime(0, 0, 0, date('m'), 31, date('Y'));
+        $month_start; $month_end;
+
+        if (!empty($this->params['month']) && !empty($this->params['year'])) {
+            $year = $this->params['year'];
+            $month = $this->params['month'];
+            $this->set('year', $year);
+            $this->set('month', $month);
+            $month_start = $d=mktime(0, 0, 0, $month, 1, $year);
+            $month_end = $d=mktime(0, 0, 0, $month, 31, $year);
+        } else {
+            $month_start = $d=mktime(0, 0, 0, date('m'), 1, date('Y'));
+            $month_end = $d=mktime(0, 0, 0, date('m'), 31, date('Y'));
+        }
+
+        //$month_start = $d=mktime(0, 0, 0, date('m'), 1, date('Y'));
+        //$month_end = $d=mktime(0, 0, 0, date('m'), 31, date('Y'));
 
         $revenue = $this->Account->sum('amount', array(
             'conditions' => array(

@@ -46,6 +46,14 @@ jQuery(document).ready(function(){
 				jQuery("#add-trip #TripAmountPaid").val(0);
 		}
 	});
+
+	if(jQuery("table.driver-allowances").is(":visible")) {
+		get_unpaid_driver_allowances();
+	}
+	if(jQuery("table.motorboy-allowances").is(":visible")) {
+		get_unpaid_motorboy_allowances();
+	}
+
 });
 
 function set_total_price() {
@@ -142,4 +150,39 @@ function set_route_info(route) {
 	jQuery("#add-trip #TripTripAllowance").val(route[0]['trip_allowance']);
 	jQuery("#add-trip #TripPrice").val(route[0]['price']);
 	//jQuery("#add-trip #TripLitresOfFuel").val(route[0]['litres_of_fuel']);
+}
+
+function get_unpaid_driver_allowances() {
+	var data = {
+	    action: 'admin_trips_get_unpaid_driver_allowances'
+	};
+  	jQuery.post(ajaxurl, data, function(data, status) {
+  		var options = parse_inner_table_trs(JSON.parse(data), 'driver');
+  		jQuery("table.driver-allowances tbody").html(options.join(''));
+  	});
+}
+
+function get_unpaid_motorboy_allowances() {
+	var data = {
+	    action: 'admin_trips_get_unpaid_motorboy_allowances'
+	};
+  	jQuery.post(ajaxurl, data, function(data, status) {
+  		var options = parse_inner_table_trs(JSON.parse(data), 'motorboy');
+  		jQuery("table.motorboy-allowances tbody").html(options.join(''));
+  	});
+}
+
+//Parese Inner Table Rows (trs)
+// As in tr for row, and trs for rows
+function parse_inner_table_trs(options_obj, driver_or_motorboy) {
+	var output = [];
+	jQuery.each(options_obj, function(key, value) {
+		output.push('<tr>');
+		jQuery.each(value, function(key, value) {
+			output.push('<td>'+ value +'</td>');
+		});
+		output.push('<td><a  href="admin.php?page=mvc_accounts-driver_motorboy_allowance&pay-trip-'+driver_or_motorboy+'='+value.trip_ids+'">Pay</a></td></tr>');
+		
+	});
+	return output;
 }

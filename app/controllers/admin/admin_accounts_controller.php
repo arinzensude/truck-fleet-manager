@@ -111,6 +111,48 @@ class AdminAccountsController extends MvcAdminController {
         $this->set_pagination($collection);
     }
 
+    function driver_motorboy_allowance() {
+        if (!empty($this->params['pay-trip-driver'])) {
+            $this->pay_driver_motorboy_allowance($this->params['pay-trip-driver'], 'driver_allowance');
+        } elseif ((!empty($this->params['pay-trip-motorboy']))) {
+            $this->pay_driver_motorboy_allowance($this->params['pay-trip-motorboy'], 'motorboy_allowance');
+        }
+        $month_start = $d=mktime(0, 0, 0, date('m'), 1, date('Y'));
+        $month_end = $d=mktime(0, 0, 0, date('m'), 31, date('Y'));
+
+        $this->params = array(
+            'conditions' => array(
+                'Account.type' => 'Trip',
+                'Account.description' => array('driver_allowance', 'motorboy_allowance'),
+                'Account.paid_or_received' => 1,
+                //'Account.created_on >=' => date("Y-m-d", $month_start),
+                //'Account.created_on <=' => date("Y-m-d", $month_end),
+            ),
+            'page' => 1,
+            'per_page' => 20
+        );
+
+        $this->init_default_columns();
+        $this->process_params_for_search();
+        $collection = $this->model->paginate($this->params);
+        $this->set('objects', $collection['objects']);
+        $this->set_pagination($collection);
+    }
+
+    //Pay Motorboy and Driver allowance by updating the paid_or_received column in Account table to 1
+    public function pay_driver_motorboy_allowance($trip_ids, $description) {
+        $this->Account->update_all(
+            array('Account.paid_or_received' => 1),
+            array(
+                'conditions' => array(
+                'Account.type' => 'Trip',
+                'Account.type_id' => explode(',', $trip_ids),
+                'Account.description' => $description,
+                )
+            )
+        );
+    }
+
     public function set_users() {
         $users = get_users(array('fields' => array('ID', 'user_nicename')));
         $managers = array();

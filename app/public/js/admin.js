@@ -68,6 +68,10 @@ jQuery(document).ready(function(){
 		if (params['year']) {
 			jQuery("#choose-year").val(params['year']);
 			jQuery("#choose-month").val(params['month']);
+		} else {
+			var currentTime = new Date();
+			jQuery("#choose-year").val(currentTime.getFullYear());
+			jQuery("#choose-month").val(currentTime.getMonth() + 1);
 		}
 	}
 

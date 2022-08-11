@@ -41,32 +41,32 @@ class AdminAccountsController extends MvcAdminController {
         $revenue = $this->Account->sum('amount', array(
             'conditions' => array(
                 'Account.mode' => 'CREDIT',
-                'Account.updated_on >=' => date("Y-m-d", $month_start),
-                'Account.updated_on <=' => date("Y-m-d", $month_end),
+                'Account.created_on >=' => date("Y-m-d", $month_start),
+                'Account.created_on <=' => date("Y-m-d", $month_end),
                 'Account.paid_or_received' => 1
             )
         ));
         $expenditure = $this->Account->sum('amount', array(
             'conditions' => array(
                 'Account.mode' => 'DEBIT',
-                'Account.updated_on >=' => date("Y-m-d", $month_start),
-                'Account.updated_on <=' => date("Y-m-d", $month_end),
+                'Account.created_on >=' => date("Y-m-d", $month_start),
+                'Account.created_on <=' => date("Y-m-d", $month_end),
                 'Account.paid_or_received' => 1
             )
         ));
         $receivables = $this->Account->sum('amount', array(
             'conditions' => array(
                 'Account.mode' => 'CREDIT',
-                'Account.updated_on >=' => date("Y-m-d", $month_start),
-                'Account.updated_on <=' => date("Y-m-d", $month_end),
+                'Account.created_on >=' => date("Y-m-d", $month_start),
+                'Account.created_on <=' => date("Y-m-d", $month_end),
                 'Account.paid_or_received' => 0
             )
         ));
         $payables = $this->Account->sum('amount', array(
             'conditions' => array(
                 'Account.mode' => 'DEBIT',
-                'Account.updated_on >=' => date("Y-m-d", $month_start),
-                'Account.updated_on <=' => date("Y-m-d", $month_end),
+                'Account.created_on >=' => date("Y-m-d", $month_start),
+                'Account.created_on <=' => date("Y-m-d", $month_end),
                 'Account.paid_or_received' => 0
             )
         ));
@@ -75,8 +75,8 @@ class AdminAccountsController extends MvcAdminController {
         if (empty($this->params['per_page'])) {
             $this->params = array(
                 'conditions' => array(
-                    'Account.updated_on >=' => date("Y-m-d", $month_start),
-                    'Account.updated_on <=' => date("Y-m-d", $month_end),
+                    'Account.created_on >=' => date("Y-m-d", $month_start),
+                    'Account.created_on <=' => date("Y-m-d", $month_end),
                 ),
                 'page' => 1,
                 'per_page' => 20

@@ -13,6 +13,18 @@
 
 <p><h3>Salary List from Accounts Table</h3></p>
 
+<div class="tablenav">
+
+    <div class="tablenav-pages">
+    
+        <?php echo paginate_links($pagination); ?>
+    
+    </div>
+
+</div>
+
+<div class="clear"></div>
+
 <table class="widefat post fixed striped" cellspacing="0">
 
     <thead>
@@ -35,3 +47,15 @@
     </tbody>
     
 </table>
+
+<div class="tablenav">
+
+    <div class="tablenav-pages">
+    
+        <?php echo paginate_links($pagination); ?>
+    
+    </div>
+
+</div>
+
+<br class="clear" />

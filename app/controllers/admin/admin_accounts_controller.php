@@ -70,14 +70,19 @@ class AdminAccountsController extends MvcAdminController {
                 'Account.paid_or_received' => 0
             )
         ));
-        $this->params = array(
-            'conditions' => array(
-                'Account.updated_on >=' => date("Y-m-d", $month_start),
-                'Account.updated_on <=' => date("Y-m-d", $month_end),
-            ),
-            'page' => 1,
-            'per_page' => 20
-        );
+
+        //This is so the params are not reset when paginating through the list
+        if (empty($this->params['per_page'])) {
+            $this->params = array(
+                'conditions' => array(
+                    'Account.updated_on >=' => date("Y-m-d", $month_start),
+                    'Account.updated_on <=' => date("Y-m-d", $month_end),
+                ),
+                'page' => 1,
+                'per_page' => 20
+            );
+        }
+        
         $this->set('revenue', $revenue);
         $this->set('expenditure', $expenditure);
         $this->set('receivables', $receivables);
@@ -111,13 +116,17 @@ class AdminAccountsController extends MvcAdminController {
         $this->set('paid_by', $user);
 
         //List Salary
-        $this->params = array(
-            'conditions' => array(
-                'Account.type' => 'Salary',
-            ),
-            'page' => 1,
-            'per_page' => 20
-        );
+        //The If condition is so the params are not reset when paginating through the list
+        if (empty($this->params['per_page'])) {
+            $this->params = array(
+                'conditions' => array(
+                    'Account.type' => 'Salary',
+                ),
+                'page' => 1,
+                'per_page' => 20
+            );
+        }
+        
         $this->init_default_columns();
         $this->process_params_for_search();
         $collection = $this->model->paginate($this->params);
@@ -134,17 +143,20 @@ class AdminAccountsController extends MvcAdminController {
         $month_start = $d=mktime(0, 0, 0, date('m'), 1, date('Y'));
         $month_end = $d=mktime(0, 0, 0, date('m'), 31, date('Y'));
 
-        $this->params = array(
-            'conditions' => array(
-                'Account.type' => 'Trip',
-                'Account.description' => array('driver_allowance', 'motorboy_allowance'),
-                'Account.paid_or_received' => 1,
-                //'Account.created_on >=' => date("Y-m-d", $month_start),
-                //'Account.created_on <=' => date("Y-m-d", $month_end),
-            ),
-            'page' => 1,
-            'per_page' => 20
-        );
+        //The If condition is so the params are not reset when paginating through the list
+        if (empty($this->params['per_page'])) {
+            $this->params = array(
+                'conditions' => array(
+                    'Account.type' => 'Trip',
+                    'Account.description' => array('driver_allowance', 'motorboy_allowance'),
+                    'Account.paid_or_received' => 1,
+                    //'Account.created_on >=' => date("Y-m-d", $month_start),
+                    //'Account.created_on <=' => date("Y-m-d", $month_end),
+                ),
+                'page' => 1,
+                'per_page' => 20
+            );
+        }
 
         $this->init_default_columns();
         $this->process_params_for_search();

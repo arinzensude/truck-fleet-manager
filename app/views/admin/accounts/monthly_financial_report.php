@@ -50,6 +50,18 @@
 
 <p><h3>List of Account entries for <?php echo !empty($month) ? date('F', mktime(0, 0, 0, $month, 10))." ".$year : date('F Y');; ?>.</h3></p>
 
+<div class="tablenav">
+
+    <div class="tablenav-pages">
+    
+        <?php echo paginate_links($pagination); ?>
+    
+    </div>
+
+</div>
+
+<div class="clear"></div>
+
 <table class="widefat post fixed striped" cellspacing="0">
 
     <thead>
@@ -72,3 +84,15 @@
     </tbody>
     
 </table>
+
+<div class="tablenav">
+
+    <div class="tablenav-pages">
+    
+        <?php echo paginate_links($pagination); ?>
+    
+    </div>
+
+</div>
+
+<br class="clear" />

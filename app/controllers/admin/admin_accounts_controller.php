@@ -79,7 +79,8 @@ class AdminAccountsController extends MvcAdminController {
                     'Account.created_on <=' => date("Y-m-d", $month_end),
                 ),
                 'page' => 1,
-                'per_page' => 20
+                'per_page' => 20,
+                'order' => 'Account.created_on DESC'
             );
         }
         
@@ -123,7 +124,8 @@ class AdminAccountsController extends MvcAdminController {
                     'Account.type' => 'Salary',
                 ),
                 'page' => 1,
-                'per_page' => 20
+                'per_page' => 20,
+                'order' => 'Account.created_on DESC'
             );
         }
         
@@ -154,7 +156,8 @@ class AdminAccountsController extends MvcAdminController {
                     //'Account.created_on <=' => date("Y-m-d", $month_end),
                 ),
                 'page' => 1,
-                'per_page' => 20
+                'per_page' => 20,
+                'order' => 'Account.created_on DESC'
             );
         }
 

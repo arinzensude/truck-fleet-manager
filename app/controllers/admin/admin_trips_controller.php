@@ -4,7 +4,7 @@ class AdminTripsController extends MvcAdminController {
 
     var $default_columns = array('id', 'invoice_no', 'invoice_date', 
 	'truck' => array('value_method' => 'get_truck_name'), 'driver' => array('value_method' => 'get_driver_name'),
-	'client' => array('value_method' => 'get_client_name'), 'route' => array('value_method' => 'get_route_name'),
+	'client' => array('value_method' => 'get_client_name'), 'route' => array('value_method' => 'get_route_name'), 'quantity', 
 	'paid_in_full' => array('value_method' => 'get_paid_in_full'), 'complete' => array('value_method' => 'get_complete', 'label' => 'Trip Completed?'));
     var $default_searchable_fields = array('invoice_no', 'truck', 'driver', 'client', 'route');
 

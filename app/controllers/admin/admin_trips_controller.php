@@ -14,7 +14,7 @@ class AdminTripsController extends MvcAdminController {
     	$this->set_drivers();
     	$this->set_routes();
     	if (!empty($this->params['data']) && !empty($this->params['data']['Trip'])) {
-            $this->params['data']['Trip']['created_on'] = date('Y-m-d');
+            //$this->params['data']['Trip']['created_on'] = date('Y-m-d');
             $this->params['data']['Trip']['updated_on'] = date('Y-m-d');
         }
     	if ($this->model->custom_before_save($this->params['data']['Trip'], 'ADD')) {

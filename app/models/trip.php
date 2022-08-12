@@ -58,19 +58,19 @@ class Trip extends MvcModel {
 
     public function after_save($object) {
   		if($this->is_trip_account($object->id)) {
-  			$this->debit_account_save('DEBIT', 'Trip', $object->id, 'driver_allowance', $object->driver_allowance, 0);
-  			$this->debit_account_save('DEBIT', 'Trip', $object->id, 'motorboy_allowance', $object->motorboy_allowance, 0);
-  			$this->debit_account_save('DEBIT', 'Trip', $object->id, 'trip_allowance', $object->trip_allowance, 1);
-  			$this->debit_account_save('DEBIT', 'Trip', $object->id, 'total_fuel_cost', $object->total_fuel_cost, 1);
-        $this->debit_account_save('DEBIT', 'Trip', $object->id, 'other_expenses', $object->other_expenses, 1);
-  			$this->debit_account_save('CREDIT', 'Trip', $object->id, 'amount_paid', $object->amount_paid, 1);
+  			$this->debit_account_save('DEBIT', 'Trip', $object->id, 'driver_allowance', $object->driver_allowance, 0, $object->created_on);
+  			$this->debit_account_save('DEBIT', 'Trip', $object->id, 'motorboy_allowance', $object->motorboy_allowance, 0, $object->created_on);
+  			$this->debit_account_save('DEBIT', 'Trip', $object->id, 'trip_allowance', $object->trip_allowance, 1, $object->created_on);
+  			$this->debit_account_save('DEBIT', 'Trip', $object->id, 'total_fuel_cost', $object->total_fuel_cost, 1, $object->created_on);
+        $this->debit_account_save('DEBIT', 'Trip', $object->id, 'other_expenses', $object->other_expenses, 1, $object->created_on);
+  			$this->debit_account_save('CREDIT', 'Trip', $object->id, 'amount_paid', $object->amount_paid, 1, $object->created_on);
   		} else {
-  			$this->debit_account_create('DEBIT', 'Trip', $object->id, 'driver_allowance', $object->driver_allowance, 0);
-  			$this->debit_account_create('DEBIT', 'Trip', $object->id, 'motorboy_allowance', $object->motorboy_allowance, 0);
-  			$this->debit_account_create('DEBIT', 'Trip', $object->id, 'trip_allowance', $object->trip_allowance, 1);
-  			$this->debit_account_create('DEBIT', 'Trip', $object->id, 'total_fuel_cost', $object->total_fuel_cost, 1);
-        $this->debit_account_create('DEBIT', 'Trip', $object->id, 'other_expenses', $object->other_expenses, 1);
-  			$this->debit_account_create('CREDIT', 'Trip', $object->id, 'amount_paid', $object->amount_paid, 1);
+  			$this->debit_account_create('DEBIT', 'Trip', $object->id, 'driver_allowance', $object->driver_allowance, 0, $object->created_on);
+  			$this->debit_account_create('DEBIT', 'Trip', $object->id, 'motorboy_allowance', $object->motorboy_allowance, 0, $object->created_on);
+  			$this->debit_account_create('DEBIT', 'Trip', $object->id, 'trip_allowance', $object->trip_allowance, 1, $object->created_on);
+  			$this->debit_account_create('DEBIT', 'Trip', $object->id, 'total_fuel_cost', $object->total_fuel_cost, 1, $object->created_on);
+        $this->debit_account_create('DEBIT', 'Trip', $object->id, 'other_expenses', $object->other_expenses, 1, $object->created_on);
+  			$this->debit_account_create('CREDIT', 'Trip', $object->id, 'amount_paid', $object->amount_paid, 1, $object->created_on);
   		}
       //Update manager balance after creating or updating Trip
       if (current_user_can('manager')) {
@@ -88,7 +88,7 @@ class Trip extends MvcModel {
   	}
 
   	//Used to update an Account record that already exists
-  	public function debit_account_save($mode, $type, $object_id, $description, $amount, $paid) {
+  	public function debit_account_save($mode, $type, $object_id, $description, $amount, $paid, $created_on) {
   		$account = new Account();
   		$find_account = $account->find(array(
   			'selects' => array('Account.id'),
@@ -103,12 +103,13 @@ class Trip extends MvcModel {
   			'amount' => $amount,
   			'paid_or_received' => $paid,
   			'paid_by' => get_current_user_id(),
+        'created_on' => $created_on,
   			'updated_on' => date('Y-m-d')
   		));
   		$account->save($params);
   	}
 
-  	public function debit_account_create($mode, $type, $object_id, $description, $amount, $paid) {
+  	public function debit_account_create($mode, $type, $object_id, $description, $amount, $paid, $created_on) {
   		$params = array('Account' => array(
   			'mode' => $mode,
   			'type' => $type,
@@ -117,7 +118,7 @@ class Trip extends MvcModel {
   			'amount' => $amount,
   			'paid_or_received' => $paid,
   			'paid_by' => get_current_user_id(),
-  			'created_on' => date('Y-m-d'),
+  			'created_on' => $created_on,
   			'updated_on' => date('Y-m-d')
   		));
   		$account = new Account();

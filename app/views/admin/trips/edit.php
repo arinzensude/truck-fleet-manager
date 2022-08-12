@@ -28,6 +28,7 @@
 <?php echo $this->form->input('total_fuel_cost', array('readonly'=>'readonly')); ?>
 <?php echo $this->form->input('other_expenses'); ?>
 <?php echo $this->form->textarea_input('other_expenses_description', array('label' => 'Description for Other Expenses')); ?>
+<?php echo $this->form->date_input('created_on', array('label' => 'Created On Date', 'value' => $object->created_on)); ?>
 <?php if(current_user_can('administrator')) {?>
 	<?php echo $this->form->input('price', array('readonly'=>'readonly')); ?>
 	<?php echo $this->form->input('total_price', array('readonly'=>'readonly')); ?>

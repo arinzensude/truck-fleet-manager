@@ -100,7 +100,7 @@ class AdminAccountsController extends MvcAdminController {
         $user = get_current_user_id();
         if (!empty($this->params['data']) && !empty($this->params['data']['Account'])) {
             if (is_numeric($this->params['data']['Account']['amount'])) {
-                $this->params['data']['Account']['created_on'] = date('Y-m-d');
+                //$this->params['data']['Account']['created_on'] = date('Y-m-d');
                 $this->params['data']['Account']['updated_on'] = date('Y-m-d');
                 if($this->model->create($this->params['data'])) {
                     $this->model->update_manager_wallet(array('user' => $user, 'amount' =>$this->params['data']['Account']['amount']));

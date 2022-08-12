@@ -5,6 +5,9 @@ class Trip extends MvcModel {
 
     var $display_field = 'invoice_no';
     var $belongs_to = array('Truck', 'Driver', 'Route', 'Client');
+    //Change the index view list to 20 per page and list in DESC order
+    var $per_page = 20;
+    var $order = 'Trip.created_on DESC';
 
     var $validate = array(
         // Use a custom regex for the validation

@@ -8,6 +8,9 @@ class CreditWallet extends MvcModel {
 	      'foreign_key' => 'manager'
 	    )
   	);
+  	//Change the index view list to 20 per page and list in DESC order
+    var $per_page = 20;
+    var $order = 'CreditWallet.created_on DESC';
 
   	var $validate = array(
         // Use a custom regex for the validation

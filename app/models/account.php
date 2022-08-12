@@ -8,6 +8,9 @@ class Account extends MvcModel {
 	      'foreign_key' => 'paid_by'
 	    )
   	);
+    //Change the index view list to 20 per page and list in DESC order
+    var $per_page = 20;
+    var $order = 'Account.created_on DESC';
 
   	public function before_delete($object) {
   		if ($object->paid_or_received && $object->mode == 'DEBIT') {

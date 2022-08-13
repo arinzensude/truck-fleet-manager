@@ -6,7 +6,11 @@ class AdminPaymentApprovalsController extends MvcAdminController {
     var $default_searchable_fields = array('truck', 'amount', 'description', 'approved', 'requested_by', 'approved_by');
 
     public function get_truck_name($object) {
-        return HtmlHelper::object_link($object->truck);
+        //For the added GENERAL PAYMENT option
+        if ($object->truck == 0)
+            return "GENERAL PAYMENT";
+        else
+            return HtmlHelper::object_link($object->truck);
     }
 
     public function is_approved($object) {

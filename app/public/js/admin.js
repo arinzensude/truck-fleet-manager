@@ -75,6 +75,21 @@ jQuery(document).ready(function(){
 		}
 	}
 
+	//Add General Payment option to Payment Approval Truck select
+	if(jQuery("#PaymentApproval_Truck_select").is(":visible")) {
+		jQuery("#PaymentApproval_Truck_select").append(jQuery('<option>', {
+		    value: 0,
+		    text: 'GENERAL PAYMENT'
+		}));
+		//if in edit page
+		if(jQuery(".admin_page_mvc_payment_approvals-edit").is(":visible")) {
+			//set selected truck option to GENERAL PAYMENT if no value is selected which means it must be for GENERAL PAYMENT
+			if(jQuery("#PaymentApproval_Truck_select").val() == '') {
+				jQuery("#PaymentApproval_Truck_select").val('0');
+			}
+		}
+	}
+
 });
 
 function set_total_price() {

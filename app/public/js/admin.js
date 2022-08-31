@@ -42,8 +42,7 @@ jQuery(document).ready(function(){
 			var total_price = jQuery("#add-trip #TripTotalPrice").val();
 			jQuery("#add-trip #TripAmountPaid").val(total_price);
 		} else {
-			if(jQuery("#add-trip #TripAmountPaid").val() <= 0)
-				jQuery("#add-trip #TripAmountPaid").val(0);
+			jQuery("#add-trip #TripAmountPaid").val(0);
 		}
 	});
 

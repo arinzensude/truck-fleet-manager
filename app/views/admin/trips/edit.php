@@ -32,8 +32,8 @@
 <?php if(current_user_can('administrator')) {?>
 	<?php echo $this->form->input('price', array('readonly'=>'readonly')); ?>
 	<?php echo $this->form->input('total_price', array('readonly'=>'readonly')); ?>
-	<?php echo $this->form->input('amount_paid'); ?>
-	<?php echo $this->form->checkbox_input('paid_in_full', array('label' => 'Paid in Full')); ?>
+	<?php echo $this->form->input('amount_paid', array('readonly'=>'readonly')); ?>
+	<?php echo $this->form->checkbox_input('paid_in_full', array('label' => 'Paid')); ?>
 <?php } else { ?>
 	<?php echo $this->form->hidden_input('price'); ?>
 	<?php echo $this->form->hidden_input('total_price'); ?>

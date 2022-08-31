@@ -7,8 +7,9 @@
 	<div id="client-trip-message"><p></p></div>
 <?php echo $this->form->create($model->name, array('is_admin' => $this->is_admin)); ?>
 <?php echo $this->form->open_admin_table(); ?>
-<?php echo $this->form->input('invoice_no'); ?>
+<?php echo $this->form->input('invoice_no', array('label' => 'Customer Name')); ?>
 <?php echo $this->form->date_input('invoice_date', array('label' => 'Invoice Date', 'value' => $object->invoice_date)); ?>
+<?php echo $this->form->date_input('created_on', array('label' => 'Created On Date', 'value' => $object->created_on)); ?>
 <?php echo $this->form->belongs_to_dropdown('Truck', $trucks, array('style' => 'width: 100px;', 'empty' => false)); ?>
 <?php echo $this->form->belongs_to_dropdown('Driver', $drivers, array('style' => 'width: 100px;', 'empty' => false)); ?>
 <?php echo $this->form->belongs_to_dropdown('Client', $clients, array('style' => 'width: 100px;', 'empty' => false)); ?>
@@ -28,7 +29,6 @@
 <?php echo $this->form->input('total_fuel_cost', array('readonly'=>'readonly')); ?>
 <?php echo $this->form->input('other_expenses'); ?>
 <?php echo $this->form->textarea_input('other_expenses_description', array('label' => 'Description for Other Expenses')); ?>
-<?php echo $this->form->date_input('created_on', array('label' => 'Created On Date', 'value' => $object->created_on)); ?>
 <?php if(current_user_can('administrator')) {?>
 	<?php echo $this->form->input('price', array('readonly'=>'readonly')); ?>
 	<?php echo $this->form->input('total_price', array('readonly'=>'readonly')); ?>

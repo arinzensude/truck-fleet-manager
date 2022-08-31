@@ -139,8 +139,12 @@ class AdminAccountsController extends MvcAdminController {
     function driver_motorboy_allowance() {
         if (!empty($this->params['pay-trip-driver'])) {
             $this->pay_driver_motorboy_allowance($this->params['pay-trip-driver'], 'driver_allowance');
-        } elseif ((!empty($this->params['pay-trip-motorboy']))) {
+        } elseif (!empty($this->params['pay-trip-motorboy'])) {
             $this->pay_driver_motorboy_allowance($this->params['pay-trip-motorboy'], 'motorboy_allowance');
+        } elseif (!empty($this->params['pay-all-trip-driver'])) {
+            $this->pay_all_driver_motorboy_allowance('driver_allowance');
+        } elseif (!empty($this->params['pay-all-trip-motorboy'])) {
+            $this->pay_all_driver_motorboy_allowance('motorboy_allowance');
         }
         $month_start = $d=mktime(0, 0, 0, date('m'), 1, date('Y'));
         $month_end = $d=mktime(0, 0, 0, date('m'), 31, date('Y'));
@@ -176,6 +180,20 @@ class AdminAccountsController extends MvcAdminController {
                 'conditions' => array(
                 'Account.type' => 'Trip',
                 'Account.type_id' => explode(',', $trip_ids),
+                'Account.description' => $description,
+                )
+            )
+        );
+    }
+
+    //Pay All unpaid Motorboy and Driver allowance by updating the paid_or_received column in Account table to 1
+    public function pay_all_driver_motorboy_allowance($description) {
+        $this->Account->update_all(
+            array('Account.paid_or_received' => 1),
+            array(
+                'conditions' => array(
+                'Account.type' => 'Trip',
+                'Account.paid_or_received' => 0,
                 'Account.description' => $description,
                 )
             )

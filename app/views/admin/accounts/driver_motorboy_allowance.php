@@ -10,7 +10,7 @@
         	<th scope="col" class="manage-column">Account Number</th>
         	<th scope="col" class="manage-column">Amount</th>
         	<th scope="col" class="manage-column">Trip IDs</th>
-        	<th scope="col" class="manage-column"></th>
+        	<th scope="col" class="manage-column"><a  href="admin.php?page=mvc_accounts-driver_motorboy_allowance&pay-all-trip-driver=1">Pay All</a></th>
         </tr>    
     </thead>
     <tbody>
@@ -29,7 +29,7 @@
         	<th scope="col" class="manage-column">Account Number</th>
         	<th scope="col" class="manage-column">Amount</th>
         	<th scope="col" class="manage-column">Trip IDs</th>
-        	<th scope="col" class="manage-column"></th>
+        	<th scope="col" class="manage-column"><a  href="admin.php?page=mvc_accounts-driver_motorboy_allowance&pay-all-trip-motorboy=1">Pay All</a></th>
         </tr>    
     </thead>
     <tbody>

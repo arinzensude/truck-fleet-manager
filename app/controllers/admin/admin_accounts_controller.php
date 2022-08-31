@@ -3,10 +3,10 @@
 class AdminAccountsController extends MvcAdminController {
 
     var $default_columns = array('id', 'mode', 'type', 'type_id', 'description', 'amount' => array('value_method' => 'number_format_amount'), 
-    	'paid_or_received' => array('value_method' => 'get_paid_or_received'), 
-    	'paid_by' => array('value_method' => 'get_user_name'));
+    	'paid_or_received' => array('value_method' => 'get_paid_or_received'), 'created_on');
     var $default_searchable_fields = array('mode', 'type', 'type_id', 'description', 'amount', 'paid_or_received', 'paid_by');
 
+    //How to Use: 'paid_by' => array('value_method' => 'get_user_name') in default columns
     public function get_user_name($object) {
     	$user = get_userdata($object->paid_by);
     	return HtmlHelper::link($user->user_nicename ,get_edit_user_link($object->paid_by));

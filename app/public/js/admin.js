@@ -214,7 +214,12 @@ function parse_inner_table_trs(options_obj, driver_or_motorboy) {
 	jQuery.each(options_obj, function(key, value) {
 		output.push('<tr>');
 		jQuery.each(value, function(key, value) {
-			output.push('<td>'+ value +'</td>');
+			if (key == "trip_ids") {
+				result = trip_ids_to_links(value);
+				output.push('<td>'+ result.join(',') +'</td>');
+			} else {
+				output.push('<td>'+ value +'</td>');
+			}
 		});
 		output.push('<td><a  href="admin.php?page=mvc_accounts-driver_motorboy_allowance&pay-trip-'+driver_or_motorboy+'='+value.trip_ids+'">Pay</a></td></tr>');
 		
@@ -231,4 +236,15 @@ function get_query(){
         result[qs[i][0]] = decodeURIComponent(qs[i][1]);
     }
     return result;
+}
+
+//convert trip IDs from Unpaid Driver & Motorboy Allowances list to links pointing to the trips
+function trip_ids_to_links(trip_ids) {
+	var domain = location.protocol + "//" + location.host;
+	var output = [];
+	ids = trip_ids.split(",");
+	jQuery.each(ids, function(key, value) {
+		output.push('<a href="'+domain+'/trips/'+value+'/" target="_blank">'+value+'</a>');
+	});
+	return output;
 }

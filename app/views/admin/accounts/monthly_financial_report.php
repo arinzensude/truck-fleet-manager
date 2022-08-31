@@ -39,6 +39,10 @@
 		<td class="data"><?php echo number_format($expenditure, 2) ?></td>
 	</tr>
 	<tr>
+		<td class="label"><b>Profit N Loss</b></td>
+		<td class="data"><?php echo number_format($revenue - $expenditure, 2) ?></td>
+	</tr>
+	<tr>
 		<td class="label"><b>Account Receivables</b></td>
 		<td class="data"><?php echo number_format($receivables, 2) ?></td>
 	</tr>

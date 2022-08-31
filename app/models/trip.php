@@ -63,14 +63,14 @@ class Trip extends MvcModel {
   			$this->debit_account_save('DEBIT', 'Trip', $object->id, 'trip_allowance', $object->trip_allowance, 1, $object->created_on);
   			$this->debit_account_save('DEBIT', 'Trip', $object->id, 'total_fuel_cost', $object->total_fuel_cost, 1, $object->created_on);
         $this->debit_account_save('DEBIT', 'Trip', $object->id, 'other_expenses', $object->other_expenses, 1, $object->created_on);
-  			$this->debit_account_save('CREDIT', 'Trip', $object->id, 'amount_paid', $object->amount_paid, 1, $object->created_on);
+  			$this->debit_account_save('CREDIT', 'Trip', $object->id, 'amount_paid', $object->total_price, $object->paid_in_full, $object->created_on);
   		} else {
   			$this->debit_account_create('DEBIT', 'Trip', $object->id, 'driver_allowance', $object->driver_allowance, 0, $object->created_on);
   			$this->debit_account_create('DEBIT', 'Trip', $object->id, 'motorboy_allowance', $object->motorboy_allowance, 0, $object->created_on);
   			$this->debit_account_create('DEBIT', 'Trip', $object->id, 'trip_allowance', $object->trip_allowance, 1, $object->created_on);
   			$this->debit_account_create('DEBIT', 'Trip', $object->id, 'total_fuel_cost', $object->total_fuel_cost, 1, $object->created_on);
         $this->debit_account_create('DEBIT', 'Trip', $object->id, 'other_expenses', $object->other_expenses, 1, $object->created_on);
-  			$this->debit_account_create('CREDIT', 'Trip', $object->id, 'amount_paid', $object->amount_paid, 1, $object->created_on);
+  			$this->debit_account_create('CREDIT', 'Trip', $object->id, 'amount_paid', $object->total_price, $object->paid_in_full, $object->created_on);
   		}
       //Update manager balance after creating or updating Trip
       if (current_user_can('manager')) {

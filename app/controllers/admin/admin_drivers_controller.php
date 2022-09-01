@@ -3,7 +3,7 @@
 class AdminDriversController extends MvcAdminController {
 
     var $default_columns = array('id', 'name', 'address', 'phone_no', 'passport'=>array('value_method' => 'passport_link'), 'bank_name', 'account_no', 'motorboy' => array('value_method' => 'get_motorboy_name'));
-    var $default_searchable_fieldss = array('name', 'motorboy');
+    var $default_searchable_fields = array('name', 'motorboy', 'address', 'phone_no', 'bank_name', 'account_no');
 
     public function add() {
     	$this->set_motorboys();

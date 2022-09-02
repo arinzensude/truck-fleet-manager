@@ -2,8 +2,8 @@
 
 class AdminRoutesController extends MvcAdminController {
 
-    var $default_searchable_fieldss = array('name', 'client');
     var $default_columns = array('id', 'name', 'client' => array('value_method' => 'get_client_name'), 'driver_allowance' => array('value_method' => 'number_format_da'), 'motorboy_allowance' => array('value_method' => 'number_format_ma'), 'trip_allowance' => array('value_method' => 'number_format_ta'), 'price' => array('value_method' => 'number_format_price'));
+    var $default_searchable_fields = array('id', 'name', 'driver_allowance', 'motorboy_allowance', 'trip_allowance', 'price');
 
     public function add() {
         $this->set_types();

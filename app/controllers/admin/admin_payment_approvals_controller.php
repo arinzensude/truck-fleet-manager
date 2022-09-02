@@ -3,7 +3,7 @@
 class AdminPaymentApprovalsController extends MvcAdminController {
 
     var $default_columns = array('id', 'truck' => array('value_method' => 'get_truck_name'), 'amount' => array('value_method' => 'number_format_amount'), 'description', 'approved' => array('value_method' => 'is_approved'), 'requested_by' => array('value_method' => 'get_requested_by'), 'approved_by' => array('value_method' => 'get_approved_by'), 'created_on' => 'Created On (YYYY-MM-DD)');
-    var $default_searchable_fields = array('truck', 'amount', 'description', 'approved', 'requested_by', 'approved_by');
+    var $default_searchable_fields = array('id', 'amount', 'description', 'created_on');
 
     public function get_truck_name($object) {
         //For the added GENERAL PAYMENT option

@@ -79,7 +79,7 @@ class AdminAccountsController extends MvcAdminController {
                     'Account.created_on <=' => date("Y-m-d", $month_end),
                 ),
                 'page' => 1,
-                'per_page' => 20,
+                'per_page' => 10000,
                 'order' => 'Account.created_on DESC'
             );
         }
